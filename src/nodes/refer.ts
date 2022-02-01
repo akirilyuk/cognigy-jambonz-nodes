@@ -6,12 +6,12 @@ import {
 
 export interface ReferJambonz {
 	type: "refer";
-	number: number;
+	referTo: string;
 }
 // The interface defines which values the Extension can use in the function below.
 export interface ReferParams extends INodeFunctionBaseParams {
 	config: {
-		number: number;
+		referTo: string;
 	};
 }
 
@@ -34,10 +34,10 @@ export const refer = createNodeDescriptor({
 	//@ts-ignore
 	function: async ({ cognigy, config }: ReferParams) => {
 		const { api } = cognigy;
-		const { number } = config;
+		const { referTo } = config;
 
 		const jambonzPayload: ReferJambonz = {
-			number,
+			referTo,
 			type: "refer"
 		};
 		// Execute a SAY Node to output the reversed text to the user
