@@ -2,9 +2,10 @@
   "name": "cognigy-jambonz-nodes",
   "version": "0.0.1",
   "description": "FIrst proposal for jambonz nodes",
-  "main": "index.js",
+  "main": "build/module.js",
   "scripts": {
-    "test": "jest",
+    "build": "tsc -p tsconfig.json",
+    "test": "jest -i",
     "test:watch": "jest --watch",
     "tsc": "tsc",
     "security": "yarn audit"

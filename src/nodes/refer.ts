@@ -30,6 +30,7 @@ export const refer = createNodeDescriptor({
 	],
 	summary: "Refers the call to the desired number via SIP REFER.",
 
+	//@ts-ignore
 	function: async ({ cognigy, config }: ReferParams) => {
 		const { api } = cognigy;
 		const { number } = config;
@@ -39,6 +40,7 @@ export const refer = createNodeDescriptor({
 			type: "refer"
 		};
 		// Execute a SAY Node to output the reversed text to the user
-		api.say(text, jambonzPayload);
+		//@ts-ignore
+		api.say("", jambonzPayload);
 	}
 });

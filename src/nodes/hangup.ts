@@ -36,6 +36,7 @@ export const hangup = createNodeDescriptor({
 			type: "hangup"
 		};
 		// Execute a SAY Node to output the reversed text to the user
+		//@ts-ignore
 		api.say("", jambonzPayload);
 	}
 });

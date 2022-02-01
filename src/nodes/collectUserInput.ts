@@ -63,6 +63,7 @@ export const collectUserInput = createNodeDescriptor({
 	summary:
 		"Speak to caller and then gather the user response via speek of DTMF.",
 
+	//@ts-ignore
 	function: async ({ cognigy, config }: CollectUserInputParams) => {
 		const { api } = cognigy;
 		const {
@@ -93,7 +94,9 @@ export const collectUserInput = createNodeDescriptor({
 			},
 			type: "gather"
 		};
+
 		// Execute a SAY Node to output the reversed text to the user
+		//@ts-ignore
 		api.say(text, jambonzPayload);
 	}
 });
