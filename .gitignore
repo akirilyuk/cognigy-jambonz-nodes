@@ -91,3 +91,7 @@ typings/
 build/*
 
 .env
+
+cognigy-jambonz-nodes.tar.gz
+
+.DS_STORE

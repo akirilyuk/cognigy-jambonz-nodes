@@ -8,7 +8,8 @@
     "test": "jest -i",
     "test:watch": "jest --watch",
     "tsc": "tsc",
-    "security": "yarn audit"
+    "security": "npm audit",
+    "package:mac": "rm -rf ./build && npm run build && tar -cf cognigy-jambonz-nodes.tar.gz build/* icon.png README.md package.json package-lock.json"
   },
   "keywords": [],
   "author": "github.com/martingaston",
