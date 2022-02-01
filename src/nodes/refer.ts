@@ -20,9 +20,10 @@ export const refer = createNodeDescriptor({
 	defaultLabel: "Refer",
 	fields: [
 		{
-			key: "number",
-			label: "The number you want to refer the call to",
-			type: "number",
+			key: "referTo",
+			label:
+				"The number you want to refer the call to in E.164 syntax or a SIP URI",
+			type: "text",
 			params: {
 				required: true
 			}
