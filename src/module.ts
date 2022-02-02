@@ -1,13 +1,14 @@
 import { createExtension } from "@cognigy/extension-tools";
 
 /* import all nodes */
-import { gather } from "./nodes/gather";
+import { promt } from "./nodes/promt";
 import { refer } from "./nodes/refer";
 import { hangup } from "./nodes/hangup";
 import { play } from "./nodes/play";
+import { setSessionConfig } from "./nodes/setSessionConfig";
 
 export default createExtension({
-	nodes: [gather, refer, hangup, play],
+	nodes: [promt, refer, hangup, play, setSessionConfig],
 
 	connections: []
 });

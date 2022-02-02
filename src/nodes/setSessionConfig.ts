@@ -15,17 +15,13 @@ import {
 	DTMFConfig
 } from "../common/jambonzConfig";
 
-export interface GatherJambonz {
-	type: "gather";
+export interface SetSessionConfigJambonz {
+	type: "setSessionConfig";
 	config: JambonzConfig;
-	text: string;
-	url: string;
 }
 // The interface defines which values the Extension can use in the function below.
-export interface GatherParams extends INodeFunctionBaseParams {
+export interface SetSessionConfigParams extends INodeFunctionBaseParams {
 	config: {
-		text: string;
-		url: string;
 		bargeInMinWordCount: number;
 		bargeInOnSpeech: number;
 		bargeInOnDtmf: number;
@@ -76,23 +72,10 @@ export interface GatherParams extends INodeFunctionBaseParams {
 	};
 }
 
-export const gather = createNodeDescriptor({
-	type: "gather",
-	defaultLabel: "Gather",
+export const setSessionConfig = createNodeDescriptor({
+	type: "setSessionConfig",
+	defaultLabel: "Change confgiguration of the ongoing call session.",
 	fields: [
-		{
-			key: "text",
-			label: "The text you want to prompt to the user.",
-			type: "cognigyText",
-			params: {
-				required: true
-			}
-		},
-		{
-			key: "url",
-			label: "The file url you want to play as promt to your user.",
-			type: "text"
-		},
 		{
 			key: "bargeInMinWordCount",
 			type: "slider",
@@ -377,13 +360,13 @@ export const gather = createNodeDescriptor({
 		},
 		{
 			key: "setUserInputParams",
-			label: "Set Barge In Parameters",
+			label: "Set User Input Parameters",
 			type: "toggle",
 			defaultValue: false
 		},
 		{
 			key: "setBotOutputParams",
-			label: "Set Barge In Parameters",
+			label: "Set Bot Output Parameters",
 			type: "toggle",
 			defaultValue: false
 		},
@@ -413,16 +396,6 @@ export const gather = createNodeDescriptor({
 		}
 	],
 	sections: [
-		{
-			key: "advanced",
-			label: "Advanced",
-			defaultCollapsed: true,
-			fields: ["activityParams"],
-			condition: {
-				key: "setActivityParams",
-				value: true
-			}
-		},
 		{
 			key: "params_stt",
 			label: "Recognizer Configuration",
@@ -546,30 +519,26 @@ export const gather = createNodeDescriptor({
 		{ type: "field", key: "text" },
 		{ type: "field", key: "url" },
 		{ type: "field", key: "setSyntheziserParams" },
-		{ type: "field", key: "setRecognizerParams" },
-		{ type: "field", key: "setBargeInParams" },
-		{ type: "field", key: "setUserInputParams" },
-		{ type: "field", key: "setBotOutputParams" },
-		{ type: "field", key: "setDTMFParams" },
-		{ type: "field", key: "setContiniousASR" },
-		{ type: "field", key: "setAzureParams" },
-		{ type: "field", key: "setGoogleParams" },
-		{ type: "section", key: "params_stt" },
 		{ type: "section", key: "params_tts" },
+		{ type: "field", key: "setRecognizerParams" },
+		{ type: "section", key: "params_stt" },
+		{ type: "field", key: "setBargeInParams" },
 		{ type: "section", key: "params_bargein" },
-		{ type: "section", key: "params_dtmf" },
+		{ type: "field", key: "setUserInputParams" },
 		{ type: "section", key: "params_user_timeouts" },
+		{ type: "field", key: "setBotOutputParams" },
 		{ type: "section", key: "params_bot_timeouts" },
+		{ type: "field", key: "setDTMFParams" },
+		{ type: "section", key: "params_dtmf" },
+		{ type: "field", key: "setContiniousASR" },
+		{ type: "section", key: "params_continuousasr" },
+		{ type: "field", key: "setAzureParams" },
 		{ type: "section", key: "params_azure" },
-		{ type: "section", key: "params_google" },
-		{ type: "section", key: "params_continuousasr" }
+		{ type: "field", key: "setGoogleParams" },
+		{ type: "section", key: "params_google" }
 	],
-	preview: {
-		type: "text",
-		key: "text"
-	},
 	summary:
-		"Speak to caller and then gather the user response via speek of DTMF.",
+		"Change the current session settings for the bots main voice configurations on the fly.",
 
 	//@ts-ignore
 	function: async ({ cognigy, config }: GatherParams) => {
@@ -588,7 +557,7 @@ export const gather = createNodeDescriptor({
 			setGoogleParams
 		} = config;
 
-		const nextTurnConfig: Partial<JambonzConfigBase> = {};
+		const sessionConfig: Partial<JambonzConfigBase> = {};
 
 		if (setSyntheziserParams) {
 			const synthesizer: SynthesizerConfig = {
@@ -597,7 +566,7 @@ export const gather = createNodeDescriptor({
 				vendor: config.ttsVendor as SpeechVendor
 			};
 
-			nextTurnConfig.synthesizer = synthesizer;
+			sessionConfig.synthesizer = synthesizer;
 		}
 
 		if (setRecognizerParams) {
@@ -607,7 +576,7 @@ export const gather = createNodeDescriptor({
 				hints: config.sttHints,
 				disableTtsCache: config.sttDisableCache
 			};
-			nextTurnConfig.recognizer = recognizer;
+			sessionConfig.recognizer = recognizer;
 		}
 
 		if (setBargeInParams) {
@@ -623,7 +592,7 @@ export const gather = createNodeDescriptor({
 				bargein.enable.push("speech");
 			}
 
-			nextTurnConfig.bargein = bargein;
+			sessionConfig.bargein = bargein;
 		}
 
 		if (setUserInputParams) {
@@ -635,7 +604,7 @@ export const gather = createNodeDescriptor({
 				noInputUrl: config.userNoInputUrl
 			};
 
-			nextTurnConfig.user = user;
+			sessionConfig.user = user;
 		}
 
 		if (setBotOutputParams) {
@@ -648,7 +617,7 @@ export const gather = createNodeDescriptor({
 				noInputUrl: config.botNoOutputUrl
 			};
 
-			nextTurnConfig.bot = bot;
+			sessionConfig.bot = bot;
 		}
 
 		if (setDTMFParams) {
@@ -658,7 +627,7 @@ export const gather = createNodeDescriptor({
 				minDigits: config.dtmfMinDigits,
 				submitDigit: config.dtmfSubmitDigit
 			};
-			nextTurnConfig.dtmf = dtmf;
+			sessionConfig.dtmf = dtmf;
 		}
 
 		if (setContiniousASR) {
@@ -672,17 +641,15 @@ export const gather = createNodeDescriptor({
 		if (setGoogleParams) {
 			// todo
 		}
-		const jambonzPayload: GatherJambonz = {
-			text,
-			url,
+		const jambonzPayload: SetSessionConfigJambonz = {
 			config: {
-				nextTurn: nextTurnConfig
+				session: sessionConfig
 			},
-			type: "gather"
+			type: "setSessionConfig"
 		};
 
 		// Execute a SAY Node to output the reversed text to the user
 		//@ts-ignore
-		api.say(text, jambonzPayload);
+		api.say("", jambonzPayload);
 	}
 });

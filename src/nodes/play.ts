@@ -27,7 +27,9 @@ export const play = createNodeDescriptor({
 			type: "text",
 			params: {
 				required: true
-			}
+			},
+			defaultValue:
+				"https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
 		},
 		{
 			key: "loop",
