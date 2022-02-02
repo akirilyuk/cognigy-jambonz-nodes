@@ -217,7 +217,7 @@ export const gather = createNodeDescriptor({
 			type: "text",
 			label: "Google STT Interaction type.",
 			description: "Define Google STT interaction type",
-			defaultValue: false
+			defaultValue: ""
 		},
 		{
 			key: "googleHintsBoost",
@@ -347,7 +347,7 @@ export const gather = createNodeDescriptor({
 			type: "text",
 			label: "ASR Digits",
 			description: "???????",
-			defaultValue: 0
+			defaultValue: ""
 		},
 		{
 			key: "asrTimeout",
