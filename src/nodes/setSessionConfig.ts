@@ -74,7 +74,7 @@ export interface SetSessionConfigParams extends INodeFunctionBaseParams {
 
 export const setSessionConfig = createNodeDescriptor({
 	type: "setSessionConfig",
-	defaultLabel: "Change confgiguration of the ongoing call session.",
+	defaultLabel: "Set Session Config",
 	fields: [
 		{
 			key: "bargeInMinWordCount",
