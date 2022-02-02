@@ -12,6 +12,7 @@ export type SynthesizerConfig = {
 	google?: {
 		disablePunctuation: boolean;
 	};
+	disableTtsCache?: boolean;
 };
 
 export type RecognizerConfig = {
@@ -28,7 +29,6 @@ export type RecognizerConfig = {
 		interactionType?: string;
 		hintsBoost?: number;
 	};
-	disableTtsCache?: boolean;
 	continuousASR?: {
 		digits?: string;
 		timeoutInMs?: number;

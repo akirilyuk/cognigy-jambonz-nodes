@@ -32,7 +32,7 @@ export interface PromtParams extends INodeFunctionBaseParams {
 		sttLanguage: string; // todo use a valid enum here
 		sttVendor: string; // todo use a valid enum here
 		sttHints: string[];
-		sttDisableCache: boolean;
+		ttsDisableCache: boolean;
 		ttsVoice: string; //todo use a valid enum here
 		ttsLanguage: string; // todo use a valid enum here
 		ttsVendor: string; // todo use a valid enum here
@@ -142,7 +142,7 @@ export const promt = createNodeDescriptor({
 			defaultValue: [""]
 		},
 		{
-			key: "sttDisableCache",
+			key: "ttsDisableCache",
 			type: "toggle",
 			label: "STT audio caching",
 			description:
@@ -427,7 +427,7 @@ export const promt = createNodeDescriptor({
 			key: "params_stt",
 			label: "Recognizer Configuration",
 			defaultCollapsed: true,
-			fields: ["sttLanguage", "sttVendor", "sttHints", "sttDisableCache"],
+			fields: ["sttLanguage", "sttVendor", "sttHints", "ttsDisableCache"],
 			condition: {
 				key: "setRecognizerParams",
 				value: true
@@ -605,7 +605,7 @@ export const promt = createNodeDescriptor({
 				language: config.sttLanguage,
 				vendor: config.sttVendor as SpeechVendor,
 				hints: config.sttHints,
-				disableTtsCache: config.sttDisableCache
+				disableTtsCache: config.ttsDisableCache
 			};
 			nextTurnConfig.recognizer = recognizer;
 		}

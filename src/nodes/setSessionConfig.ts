@@ -28,7 +28,7 @@ export interface SetSessionConfigParams extends INodeFunctionBaseParams {
 		sttLanguage: string; // todo use a valid enum here
 		sttVendor: string; // todo use a valid enum here
 		sttHints: string[];
-		sttDisableCache: boolean;
+		ttsDisableCache: boolean;
 		ttsVoice: string; //todo use a valid enum here
 		ttsLanguage: string; // todo use a valid enum here
 		ttsVendor: string; // todo use a valid enum here
@@ -125,11 +125,12 @@ export const setSessionConfig = createNodeDescriptor({
 			defaultValue: [""]
 		},
 		{
-			key: "sttDisableCache",
+			key: "ttsDisableCache",
 			type: "toggle",
-			label: "STT audio caching",
+			label: "TTS audio caching",
 			description:
-				"disable STT audio caching for reduced number of queries to STT vendor.",
+				"disable TTS audio caching for reduced number of queries to TSS vendor. Warning, " +
+				"disabling caching massively increases your TTS costs.",
 			defaultValue: false
 		},
 		{
@@ -400,7 +401,7 @@ export const setSessionConfig = createNodeDescriptor({
 			key: "params_stt",
 			label: "Recognizer Configuration",
 			defaultCollapsed: true,
-			fields: ["sttLanguage", "sttVendor", "sttHints", "sttDisableCache"],
+			fields: ["sttLanguage", "sttVendor", "sttHints"],
 			condition: {
 				key: "setRecognizerParams",
 				value: true
@@ -410,7 +411,7 @@ export const setSessionConfig = createNodeDescriptor({
 			key: "params_tts",
 			label: "Syntheziser Configuration",
 			defaultCollapsed: true,
-			fields: ["ttsVoice", "ttsLanguage", "ttsVendor"],
+			fields: ["ttsVoice", "ttsLanguage", "ttsVendor", "ttsDisableCache"],
 			condition: {
 				key: "setSyntheziserParams",
 				value: true
@@ -516,8 +517,6 @@ export const setSessionConfig = createNodeDescriptor({
 		}
 	],
 	form: [
-		{ type: "field", key: "text" },
-		{ type: "field", key: "url" },
 		{ type: "field", key: "setSyntheziserParams" },
 		{ type: "section", key: "params_tts" },
 		{ type: "field", key: "setRecognizerParams" },
@@ -544,8 +543,6 @@ export const setSessionConfig = createNodeDescriptor({
 	function: async ({ cognigy, config }: GatherParams) => {
 		const { api } = cognigy;
 		const {
-			text,
-			url,
 			setSyntheziserParams,
 			setRecognizerParams,
 			setBargeInParams,
@@ -563,7 +560,8 @@ export const setSessionConfig = createNodeDescriptor({
 			const synthesizer: SynthesizerConfig = {
 				language: config.ttsLanguage,
 				voice: config.ttsVoice,
-				vendor: config.ttsVendor as SpeechVendor
+				vendor: config.ttsVendor as SpeechVendor,
+				disableTtsCache: config.ttsDisableCache
 			};
 
 			sessionConfig.synthesizer = synthesizer;
@@ -573,8 +571,7 @@ export const setSessionConfig = createNodeDescriptor({
 			const recognizer: RecognizerConfig = {
 				language: config.sttLanguage,
 				vendor: config.sttVendor as SpeechVendor,
-				hints: config.sttHints,
-				disableTtsCache: config.sttDisableCache
+				hints: config.sttHints
 			};
 			sessionConfig.recognizer = recognizer;
 		}
