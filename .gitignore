@@ -93,5 +93,6 @@ build/*
 .env
 
 cognigy-jambonz-nodes.tar.gz
+vg2-nodes.tar.gz
 
 .DS_STORE

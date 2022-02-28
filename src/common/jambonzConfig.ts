@@ -38,6 +38,7 @@ export type RecognizerConfig = {
 export type BargeinConfig = {
 	enable: BargeInSource[];
 	minWordCount?: number;
+	dontListenAfterSpeech?: boolean;
 };
 
 export type BotOutputConfig = {

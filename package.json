@@ -1,7 +1,7 @@
 {
-  "name": "cognigy-jambonz-nodes",
+  "name": "vg2-nodes",
   "version": "0.0.2",
-  "description": "FIrst proposal for jambonz nodes",
+  "description": "FIrst proposal for vg2 nodes",
   "main": "build/module.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -9,7 +9,7 @@
     "test:watch": "jest --watch",
     "tsc": "tsc",
     "security": "npm audit",
-    "package:mac": "rm -f cognigy-jambonz-nodes.tar.gz &&  rm -rf ./build && npm run build && tar -cf cognigy-jambonz-nodes.tar.gz build/* icon.png README.md package.json package-lock.json"
+    "package:mac": "rm -f vg2-nodes.tar.gz &&  rm -rf ./build && npm run build && tar -cf vg2-nodes.tar.gz build/* icon.png README.md package.json package-lock.json"
   },
   "keywords": [],
   "author": "github.com/martingaston",

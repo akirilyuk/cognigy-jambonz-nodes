@@ -594,7 +594,8 @@ export const promt = createNodeDescriptor({
 			const synthesizer: SynthesizerConfig = {
 				language: config.ttsLanguage,
 				voice: config.ttsVoice,
-				vendor: config.ttsVendor as SpeechVendor
+				vendor: config.ttsVendor as SpeechVendor,
+				disableTtsCache: config.ttsDisableCache
 			};
 
 			nextTurnConfig.synthesizer = synthesizer;
@@ -604,8 +605,7 @@ export const promt = createNodeDescriptor({
 			const recognizer: RecognizerConfig = {
 				language: config.sttLanguage,
 				vendor: config.sttVendor as SpeechVendor,
-				hints: config.sttHints,
-				disableTtsCache: config.ttsDisableCache
+				hints: config.sttHints
 			};
 			nextTurnConfig.recognizer = recognizer;
 		}
