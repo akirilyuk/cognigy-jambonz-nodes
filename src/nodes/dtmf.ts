@@ -4,13 +4,13 @@ import {
 	INodeFunctionBaseParams
 } from "@cognigy/extension-tools";
 
-export interface HangupJambonz {
+export interface DtmfJambonz {
 	type: "dtmf";
 	dtmf: string;
 	duration?: number;
 }
 // The interface defines which values the Extension can use in the function below.
-export interface HangupParams extends INodeFunctionBaseParams {
+export interface DtmfParams extends INodeFunctionBaseParams {
 	config: {
 		dtmf: string;
 		duration?: number;
@@ -38,11 +38,12 @@ export const dtmf = createNodeDescriptor({
 	],
 	summary: "Plays dtmf digits to the caller",
 
-	function: async ({ cognigy, config }: HangupParams) => {
+	//@ts-ignore
+	function: async ({ cognigy, config }: DtmfParams) => {
 		const { api } = cognigy;
 		const { dtmf, duration } = config;
 
-		const jambonzPayload: HangupJambonz = {
+		const jambonzPayload: DtmfJambonz = {
 			dtmf,
 			duration,
 			type: "dtmf"
