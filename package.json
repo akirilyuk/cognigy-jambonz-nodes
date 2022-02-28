@@ -1,6 +1,6 @@
 {
   "name": "vg2-nodes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "FIrst proposal for vg2 nodes",
   "main": "build/module.js",
   "scripts": {
