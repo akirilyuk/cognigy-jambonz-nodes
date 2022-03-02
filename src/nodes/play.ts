@@ -35,10 +35,15 @@ export const play = createNodeDescriptor({
 			key: "loop",
 			label: "Number of time the file should be played",
 			type: "number",
-			defaultValue: 1
+			defaultValue: 1,
+			params: {
+				min: 1,
+				max: 10,
+				step: 1
+			}
 		}
 	],
-	summary: "Refers the call to the desired number via SIP REFER.",
+	summary: "Stream a sound file into the call with the ability to loop it.",
 
 	//@ts-ignore
 	function: async ({ cognigy, config }: ReferParams) => {
