@@ -62,7 +62,7 @@ export interface PromtParams extends INodeFunctionBaseParams {
 		asrDigits: number;
 		asrTimeout: number;
 
-		setSyntheziserParams: boolean;
+		setSynthesizerParams: boolean;
 		setRecognizerParams: boolean;
 		setBargeInParams: boolean;
 		setUserInputParams: boolean;
@@ -358,7 +358,7 @@ export const promt = createNodeDescriptor({
 		},
 
 		{
-			key: "setSyntheziserParams",
+			key: "setSynthesizerParams",
 			label: "Set Text To Speech Parameters",
 			type: "toggle",
 			defaultValue: false
@@ -435,11 +435,11 @@ export const promt = createNodeDescriptor({
 		},
 		{
 			key: "params_tts",
-			label: "Syntheziser Configuration",
+			label: "Synthesizer Configuration",
 			defaultCollapsed: true,
 			fields: ["ttsVoice", "ttsLanguage", "ttsVendor"],
 			condition: {
-				key: "setSyntheziserParams",
+				key: "setSynthesizerParams",
 				value: true
 			}
 		},
@@ -545,7 +545,7 @@ export const promt = createNodeDescriptor({
 	form: [
 		{ type: "field", key: "text" },
 		{ type: "field", key: "url" },
-		{ type: "field", key: "setSyntheziserParams" },
+		{ type: "field", key: "setSynthesizerParams" },
 		{ type: "section", key: "params_tts" },
 		{ type: "field", key: "setRecognizerParams" },
 		{ type: "section", key: "params_stt" },
@@ -577,7 +577,7 @@ export const promt = createNodeDescriptor({
 		const {
 			text,
 			url,
-			setSyntheziserParams,
+			setSynthesizerParams,
 			setRecognizerParams,
 			setBargeInParams,
 			setUserInputParams,
@@ -590,7 +590,7 @@ export const promt = createNodeDescriptor({
 
 		const nextTurnConfig: Partial<JambonzConfigBase> = {};
 
-		if (setSyntheziserParams) {
+		if (setSynthesizerParams) {
 			const synthesizer: SynthesizerConfig = {
 				language: config.ttsLanguage,
 				voice: config.ttsVoice,

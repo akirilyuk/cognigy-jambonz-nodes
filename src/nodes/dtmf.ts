@@ -32,8 +32,13 @@ export const dtmf = createNodeDescriptor({
 		{
 			key: "duration",
 			label: "Pause time in ms between the digits",
-			type: "number",
-			defaultValue: 100
+			type: "slider",
+			defaultValue: 250,
+			params: {
+				min: 250,
+				max: 1000,
+				step: 50
+			}
 		}
 	],
 	summary: "Plays dtmf digits to the caller",

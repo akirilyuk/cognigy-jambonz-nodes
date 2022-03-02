@@ -58,7 +58,7 @@ export interface SetSessionConfigParams extends INodeFunctionBaseParams {
 		asrDigits: number;
 		asrTimeout: number;
 
-		setSyntheziserParams: boolean;
+		setSynthesizerParams: boolean;
 		setRecognizerParams: boolean;
 		setBargeInParams: boolean;
 		setUserInputParams: boolean;
@@ -342,7 +342,7 @@ export const setSessionConfig = createNodeDescriptor({
 		},
 
 		{
-			key: "setSyntheziserParams",
+			key: "setSynthesizerParams",
 			label: "Set Text To Speech Parameters",
 			type: "toggle",
 			defaultValue: false
@@ -409,11 +409,11 @@ export const setSessionConfig = createNodeDescriptor({
 		},
 		{
 			key: "params_tts",
-			label: "Syntheziser Configuration",
+			label: "Synthesizer Configuration",
 			defaultCollapsed: true,
 			fields: ["ttsVoice", "ttsLanguage", "ttsVendor", "ttsDisableCache"],
 			condition: {
-				key: "setSyntheziserParams",
+				key: "setSynthesizerParams",
 				value: true
 			}
 		},
@@ -517,7 +517,7 @@ export const setSessionConfig = createNodeDescriptor({
 		}
 	],
 	form: [
-		{ type: "field", key: "setSyntheziserParams" },
+		{ type: "field", key: "setSynthesizerParams" },
 		{ type: "section", key: "params_tts" },
 		{ type: "field", key: "setRecognizerParams" },
 		{ type: "section", key: "params_stt" },
@@ -543,7 +543,7 @@ export const setSessionConfig = createNodeDescriptor({
 	function: async ({ cognigy, config }: GatherParams) => {
 		const { api } = cognigy;
 		const {
-			setSyntheziserParams,
+			setSynthesizerParams,
 			setRecognizerParams,
 			setBargeInParams,
 			setUserInputParams,
@@ -556,7 +556,7 @@ export const setSessionConfig = createNodeDescriptor({
 
 		const sessionConfig: Partial<JambonzConfigBase> = {};
 
-		if (setSyntheziserParams) {
+		if (setSynthesizerParams) {
 			const synthesizer: SynthesizerConfig = {
 				language: config.ttsLanguage,
 				voice: config.ttsVoice,
