@@ -569,7 +569,7 @@ export const promt = createNodeDescriptor({
 		key: "text"
 	},
 	summary:
-		"Speak to caller and then gather the user response via speek of DTMF.",
+		"Plays a single promt to the caller with the ability to change settings only for this promt.",
 
 	//@ts-ignore
 	function: async ({ cognigy, config }: PromtParams) => {
