@@ -568,8 +568,7 @@ export const promt = createNodeDescriptor({
 		type: "text",
 		key: "text"
 	},
-	summary:
-		"Plays a single promt to the caller with the ability to change settings only for this promt.",
+	summary: "Plays a single promt to the caller.",
 
 	//@ts-ignore
 	function: async ({ cognigy, config }: PromtParams) => {
